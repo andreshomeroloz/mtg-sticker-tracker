@@ -30,3 +30,7 @@ npm run dev
 ## Data
 
 Contains the complete database of all 48 Unfinity sticker sheets, including name, art, ability, and P/T stickers with their ticket costs.
+
+## Disclaimer
+
+Sticker data is provided as best-effort and may contain inaccuracies. This project is not endorsed by, affiliated with, or associated with Wizards of the Coast in any way. Magic: The Gathering and Unfinity are trademarks of Wizards of the Coast LLC.
