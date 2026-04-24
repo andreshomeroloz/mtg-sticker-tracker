@@ -1,16 +1,32 @@
-# React + Vite
+# Sticker HQ — Unfinity Sticker Manager
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A web app for tracking MTG Unfinity sticker sheets during gameplay.
 
-Currently, two official plugins are available:
+## What it does
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Unfinity introduced sticker sheets: each player brings a set of 10 sticker sheets to a game, and 3 are randomly selected for play. Stickers cost tickets (🎟️) to apply and can only be used once per game.
 
-## React Compiler
+This app helps you:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Build stickerboards** — pick 10 sticker sheets from the full Unfinity set to form your board
+- **Start a game** — randomly selects 3 sheets from your board for the current game
+- **Track sticker usage** — mark stickers as used and track your ticket balance in real time
+- **Persist state** — boards and active game are saved to localStorage, so nothing is lost on refresh
 
-## Expanding the ESLint configuration
+## Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React (Vite)
+- Inline styles only — no CSS framework
+- localStorage for persistence
+- Deployed on Vercel
+
+## Development
+
+```bash
+npm install
+npm run dev
+```
+
+## Data
+
+Contains the complete database of all 48 Unfinity sticker sheets, including name, art, ability, and P/T stickers with their ticket costs.
