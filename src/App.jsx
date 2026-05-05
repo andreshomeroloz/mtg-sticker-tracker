@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from "react";
+import { createPortal } from "react-dom";
 
 // ─── Complete database of all 48 Unfinity Sticker Sheets ───
 
@@ -972,9 +973,9 @@ function ShuffleAnimation({ game, onComplete }) {
     border: `1px solid ${COLORS.accent}66`,
   };
 
-  return (
+  return createPortal(
     <div
-      onClick={phase === "revealed" ? skip : undefined}
+      onClick={skip}
       style={{
         position: "fixed", inset: 0, zIndex: 1000,
         background: "rgba(12,10,20,0.96)",
@@ -982,7 +983,7 @@ function ShuffleAnimation({ game, onComplete }) {
         alignItems: "center", justifyContent: "center",
         animation: "sa-fadeIn 200ms ease-out",
         fontFamily: "'Comic Neue', cursive",
-        cursor: phase === "revealed" ? "pointer" : "default",
+        cursor: "pointer",
       }}
     >
       <button
@@ -1076,7 +1077,8 @@ function ShuffleAnimation({ game, onComplete }) {
           Tap to continue →
         </div>
       )}
-    </div>
+    </div>,
+    document.body
   );
 }
 
