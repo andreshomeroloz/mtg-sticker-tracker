@@ -203,7 +203,7 @@ export default function App() {
       <div style={{
         minHeight: "100vh", background: COLORS.bg, display: "flex",
         alignItems: "center", justifyContent: "center", color: COLORS.text,
-        fontFamily: "'Courier New', monospace"
+        fontFamily: "'Comic Neue', cursive"
       }}>
         <div style={{ textAlign: "center" }}>
           <div style={{ fontSize: 48, marginBottom: 16 }}>🎪</div>
@@ -220,7 +220,7 @@ export default function App() {
       minHeight: "100vh",
       background: COLORS.bg,
       color: COLORS.text,
-      fontFamily: "'Courier New', monospace",
+      fontFamily: "'Comic Neue', cursive",
       position: "relative",
       overflow: "hidden"
     }}>
@@ -308,7 +308,7 @@ function HomeView({ boards, onNewBoard, onStartGame, onDeleteBoard, onRenameBoar
             </div>
           </div>
           <button onClick={onResumeGame} style={primaryBtnStyle}>
-            Resume Game →
+            Resume game →
           </button>
         </div>
       )}
@@ -318,7 +318,7 @@ function HomeView({ boards, onNewBoard, onStartGame, onDeleteBoard, onRenameBoar
           Your Stickerboards ({boards.length})
         </h2>
         <button onClick={onNewBoard} style={primaryBtnStyle}>
-          + New Board
+          + New board
         </button>
       </div>
 
@@ -402,7 +402,7 @@ function HomeView({ boards, onNewBoard, onStartGame, onDeleteBoard, onRenameBoar
                     <button onClick={() => onStartGame(board)}
                       style={{ ...primaryBtnStyle, fontSize: 12, padding: "6px 14px" }}
                       disabled={!!game}>
-                      🎲 New Game
+                      🎲 New game
                     </button>
                     {confirmDelete === board.id ? (
                       <div style={{ display: "flex", gap: 4 }}>
@@ -478,7 +478,7 @@ function NewBoardView({ selected, setSelected, onSave, searchQuery, setSearchQue
             opacity: selected.length === 10 ? 1 : 0.4,
             cursor: selected.length === 10 ? "pointer" : "not-allowed"
           }}>
-          Save Board ✓
+          Save board ✓
         </button>
       </div>
 
@@ -639,7 +639,7 @@ function GameView({ game, onToggle, onEnd, setGame }) {
             </div>
           ) : (
             <button onClick={() => setConfirmEnd(true)} style={{ ...navBtnStyle, color: COLORS.danger, fontSize: 12 }}>
-              End Game
+              End game
             </button>
           )}
         </div>
@@ -717,7 +717,7 @@ function GameView({ game, onToggle, onEnd, setGame }) {
 
               {isExpanded && (
                 <div style={{ padding: "0 20px 20px" }}>
-                  <StickerSection title="Name Stickers" color={COLORS.name} icon="✏️">
+                  <StickerSection title="Name stickers" color={COLORS.name} icon="✏️">
                     <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
                       {sheet.nameStickers.map((name, idx) => (
                         <StickerChip key={idx}
@@ -729,7 +729,7 @@ function GameView({ game, onToggle, onEnd, setGame }) {
                     </div>
                   </StickerSection>
 
-                  <StickerSection title="Ability Stickers" color={COLORS.ability} icon="⚡">
+                  <StickerSection title="Ability stickers" color={COLORS.ability} icon="⚡">
                     <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                       {sheet.abilityStickers.map((ability, idx) => (
                         <AbilityChip key={idx}
@@ -800,7 +800,7 @@ function AbilityChip({ ability, used, onClick }) {
       background: used ? COLORS.used : COLORS.ability + "12",
       border: `1px solid ${used ? COLORS.used : COLORS.ability + "44"}`,
       color: used ? COLORS.usedText : COLORS.text,
-      fontFamily: "inherit", fontSize: 12,
+      fontFamily: "inherit", fontSize: 13,
       cursor: "pointer", transition: "all 0.15s",
       opacity: used ? 0.6 : 1,
       display: "flex", alignItems: "stretch",
@@ -818,11 +818,12 @@ function AbilityChip({ ability, used, onClick }) {
       </span>
       <span style={{
         padding: "10px 14px", flex: 1,
+        display: "flex", alignItems: "center",
         textDecoration: used ? "line-through" : "none"
       }}>
         {ability.text}
       </span>
-      {used && <span style={{ padding: "10px 12px", fontSize: 10, color: COLORS.usedText }}>✕</span>}
+      {used && <span style={{ padding: "10px 12px", fontSize: 10, color: COLORS.usedText, display: "flex", alignItems: "center" }}>✕</span>}
     </button>
   );
 }
@@ -865,14 +866,14 @@ function PTChip({ pt, used, onClick }) {
 const navBtnStyle = {
   padding: "8px 14px", borderRadius: 8,
   background: COLORS.card, border: `1px solid ${COLORS.border}`,
-  color: COLORS.text, fontFamily: "'Courier New', monospace",
+  color: COLORS.text, fontFamily: "'Comic Neue', cursive",
   fontSize: 12, cursor: "pointer", transition: "all 0.15s"
 };
 
 const primaryBtnStyle = {
   padding: "10px 20px", borderRadius: 8,
   background: `linear-gradient(135deg, ${COLORS.accentDim}, ${COLORS.accent})`,
-  border: "none", color: "#fff", fontFamily: "'Courier New', monospace",
+  border: "none", color: "#fff", fontFamily: "'Comic Neue', cursive",
   fontSize: 13, fontWeight: 700, cursor: "pointer",
   letterSpacing: 1, transition: "all 0.15s",
   boxShadow: `0 4px 16px ${COLORS.accent}33`
