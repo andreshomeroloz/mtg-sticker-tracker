@@ -221,6 +221,7 @@ export default function App() {
   return (
     <div style={{
       minHeight: "100vh",
+      display: "flex", flexDirection: "column",
       background: COLORS.bg,
       color: COLORS.text,
       fontFamily: "'Comic Neue', cursive",
@@ -266,7 +267,7 @@ export default function App() {
         </div>
       </header>
 
-      <main style={{ maxWidth: 900, margin: "0 auto", padding: "24px 16px 80px", position: "relative", zIndex: 5 }}>
+      <main style={{ flex: 1, maxWidth: 900, width: "100%", margin: "0 auto", padding: "24px 16px 80px", position: "relative", zIndex: 5 }}>
         {view === "home" && (
           <HomeView boards={boards} onNewBoard={() => setView("newBoard")}
             onStartGame={startGame} onDeleteBoard={deleteBoard} onRenameBoard={renameBoard}
@@ -285,6 +286,14 @@ export default function App() {
             setGame={setGame} />
         )}
       </main>
+
+      <footer style={{
+        textAlign: "center", padding: "16px 24px 24px",
+        fontSize: 12, color: COLORS.textDim, lineHeight: 1.6,
+        borderTop: `1px solid ${COLORS.border}`, opacity: 0.6,
+      }}>
+        Not affiliated with or endorsed by Wizards of the Coast. Magic: The Gathering and Unfinity are trademarks of Wizards of the Coast, LLC.
+      </footer>
     </div>
   );
 }
