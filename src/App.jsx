@@ -209,7 +209,7 @@ export default function App() {
       }}>
         <div style={{ textAlign: "center" }}>
           <div style={{ fontSize: 48, marginBottom: 16 }}>🎪</div>
-          <div style={{ fontSize: 14, letterSpacing: 4, textTransform: "uppercase", color: COLORS.textDim }}>
+          <div style={{ fontSize: 16, letterSpacing: 4, textTransform: "uppercase", color: COLORS.textDim }}>
             Loading Astrotorium...
           </div>
         </div>
@@ -249,7 +249,7 @@ export default function App() {
               }}>
                 Sticker HQ
               </h1>
-              <div style={{ fontSize: 10, color: COLORS.textDim, letterSpacing: 3, textTransform: "uppercase", marginTop: 2 }}>
+              <div style={{ fontSize: 12, color: COLORS.textDim, letterSpacing: 3, textTransform: "uppercase", marginTop: 2 }}>
                 Unfinity Sticker Manager
               </div>
             </div>
@@ -305,10 +305,10 @@ function HomeView({ boards, onNewBoard, onStartGame, onDeleteBoard, onRenameBoar
           flexWrap: "wrap", gap: 12
         }}>
           <div>
-            <div style={{ fontSize: 12, color: COLORS.accent, letterSpacing: 2, textTransform: "uppercase", marginBottom: 4 }}>
+            <div style={{ fontSize: 14, color: COLORS.accent, letterSpacing: 2, textTransform: "uppercase", marginBottom: 4 }}>
               ⚡ Game In Progress
             </div>
-            <div style={{ fontSize: 14, color: COLORS.text }}>
+            <div style={{ fontSize: 16, color: COLORS.text }}>
               {game.boardName} — {Object.keys(game.usedStickers).length} stickers used
             </div>
           </div>
@@ -319,7 +319,7 @@ function HomeView({ boards, onNewBoard, onStartGame, onDeleteBoard, onRenameBoar
       )}
 
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 20 }}>
-        <h2 style={{ margin: 0, fontSize: 14, letterSpacing: 3, textTransform: "uppercase", color: COLORS.textDim }}>
+        <h2 style={{ margin: 0, fontSize: 16, letterSpacing: 3, textTransform: "uppercase", color: COLORS.textDim }}>
           Your Stickerboards ({boards.length})
         </h2>
         <button onClick={onNewBoard} style={primaryBtnStyle}>
@@ -333,10 +333,10 @@ function HomeView({ boards, onNewBoard, onStartGame, onDeleteBoard, onRenameBoar
           border: `1px dashed ${COLORS.border}`, borderRadius: 12
         }}>
           <div style={{ fontSize: 48, marginBottom: 16 }}>🃏</div>
-          <div style={{ fontSize: 14, color: COLORS.textDim, marginBottom: 8 }}>
+          <div style={{ fontSize: 16, color: COLORS.textDim, marginBottom: 8 }}>
             No stickerboards yet
           </div>
-          <div style={{ fontSize: 12, color: COLORS.textDim, maxWidth: 300, margin: "0 auto" }}>
+          <div style={{ fontSize: 14, color: COLORS.textDim, maxWidth: 300, margin: "0 auto" }}>
             Create a board of 10 unique sticker sheets, then start a game to randomly select 3 for play.
           </div>
         </div>
@@ -369,29 +369,29 @@ function HomeView({ boards, onNewBoard, onStartGame, onDeleteBoard, onRenameBoar
                             flex: 1, padding: "4px 8px", borderRadius: 6,
                             background: COLORS.bg, border: `1px solid ${COLORS.accent}88`,
                             color: COLORS.text, fontFamily: "inherit",
-                            fontSize: 15, fontWeight: 700, outline: "none"
+                            fontSize: 17, fontWeight: 700, outline: "none"
                           }}
                         />
                         <button onClick={() => {
                           if (editName.trim()) onRenameBoard(board.id, editName.trim());
                           setEditingId(null);
-                        }} style={{ ...navBtnStyle, fontSize: 11, padding: "4px 8px", color: COLORS.success }}>
+                        }} style={{ ...navBtnStyle, fontSize: 13, padding: "4px 8px", color: COLORS.success }}>
                           ✓
                         </button>
                         <button onClick={() => setEditingId(null)}
-                          style={{ ...navBtnStyle, fontSize: 11, padding: "4px 8px" }}>
+                          style={{ ...navBtnStyle, fontSize: 13, padding: "4px 8px" }}>
                           ✕
                         </button>
                       </div>
                     ) : (
                       <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
-                        <div style={{ fontSize: 15, fontWeight: 700, color: COLORS.text }}>
+                        <div style={{ fontSize: 17, fontWeight: 700, color: COLORS.text }}>
                           {board.name}
                         </div>
                         <button onClick={() => { setEditingId(board.id); setEditName(board.name); }}
                           style={{
                             background: "transparent", border: "none", cursor: "pointer",
-                            color: COLORS.textDim, fontSize: 13, padding: 2,
+                            color: COLORS.textDim, fontSize: 15, padding: 2,
                             fontFamily: "inherit", opacity: 0.6
                           }}
                           title="Rename board">
@@ -399,30 +399,30 @@ function HomeView({ boards, onNewBoard, onStartGame, onDeleteBoard, onRenameBoar
                         </button>
                       </div>
                     )}
-                    <div style={{ fontSize: 11, color: COLORS.textDim }}>
+                    <div style={{ fontSize: 13, color: COLORS.textDim }}>
                       Created {new Date(board.createdAt).toLocaleDateString()}
                     </div>
                   </div>
                   <div style={{ display: "flex", gap: 8 }}>
                     <button onClick={() => onStartGame(board)}
-                      style={{ ...primaryBtnStyle, fontSize: 12, padding: "6px 14px" }}
+                      style={{ ...primaryBtnStyle, fontSize: 14, padding: "6px 14px" }}
                       disabled={!!game}>
                       🎲 New game
                     </button>
                     {confirmDelete === board.id ? (
                       <div style={{ display: "flex", gap: 4 }}>
                         <button onClick={() => { onDeleteBoard(board.id); setConfirmDelete(null); }}
-                          style={{ ...dangerBtnStyle, fontSize: 11, padding: "6px 10px" }}>
+                          style={{ ...dangerBtnStyle, fontSize: 13, padding: "6px 10px" }}>
                           Yes
                         </button>
                         <button onClick={() => setConfirmDelete(null)}
-                          style={{ ...navBtnStyle, fontSize: 11, padding: "6px 10px" }}>
+                          style={{ ...navBtnStyle, fontSize: 13, padding: "6px 10px" }}>
                           No
                         </button>
                       </div>
                     ) : (
                       <button onClick={() => setConfirmDelete(board.id)}
-                        style={{ ...navBtnStyle, fontSize: 12, padding: "6px 10px", color: COLORS.danger }}>
+                        style={{ ...navBtnStyle, fontSize: 14, padding: "6px 10px", color: COLORS.danger }}>
                         🗑️
                       </button>
                     )}
@@ -431,7 +431,7 @@ function HomeView({ boards, onNewBoard, onStartGame, onDeleteBoard, onRenameBoar
                 <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
                   {sheets.map(s => (
                     <span key={s.id} style={{
-                      fontSize: 11, padding: "3px 8px", borderRadius: 6,
+                      fontSize: 13, padding: "3px 8px", borderRadius: 6,
                       background: COLORS.accentGlow, color: COLORS.accent,
                       border: `1px solid ${COLORS.accent}33`
                     }}>
@@ -466,14 +466,14 @@ function NewBoardView({ selected, setSelected, onSave, searchQuery, setSearchQue
     <div>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20, flexWrap: "wrap", gap: 12 }}>
         <div>
-          <h2 style={{ margin: 0, fontSize: 14, letterSpacing: 3, textTransform: "uppercase", color: COLORS.textDim }}>
+          <h2 style={{ margin: 0, fontSize: 16, letterSpacing: 3, textTransform: "uppercase", color: COLORS.textDim }}>
             Build a Stickerboard
           </h2>
           <div style={{
             fontSize: 24, fontWeight: 700, color: selected.length === 10 ? COLORS.success : COLORS.accent,
             marginTop: 4
           }}>
-            {selected.length}/10 <span style={{ fontSize: 13, color: COLORS.textDim, fontWeight: 400 }}>sheets selected</span>
+            {selected.length}/10 <span style={{ fontSize: 15, color: COLORS.textDim, fontWeight: 400 }}>sheets selected</span>
           </div>
         </div>
         <button onClick={() => onSave(selected)}
@@ -497,7 +497,7 @@ function NewBoardView({ selected, setSelected, onSave, searchQuery, setSearchQue
             width: "100%", boxSizing: "border-box", padding: "10px 14px",
             background: COLORS.card, border: `1px solid ${COLORS.border}`,
             borderRadius: 8, color: COLORS.text, fontFamily: "inherit",
-            fontSize: 13, outline: "none"
+            fontSize: 15, outline: "none"
           }}
         />
       </div>
@@ -507,7 +507,7 @@ function NewBoardView({ selected, setSelected, onSave, searchQuery, setSearchQue
           marginBottom: 16, padding: 12, background: COLORS.card,
           borderRadius: 8, border: `1px solid ${COLORS.border}`
         }}>
-          <div style={{ fontSize: 11, color: COLORS.textDim, marginBottom: 8, textTransform: "uppercase", letterSpacing: 1 }}>
+          <div style={{ fontSize: 13, color: COLORS.textDim, marginBottom: 8, textTransform: "uppercase", letterSpacing: 1 }}>
             Selected:
           </div>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
@@ -516,7 +516,7 @@ function NewBoardView({ selected, setSelected, onSave, searchQuery, setSearchQue
               return (
                 <button key={id} onClick={() => toggleSheet(id)}
                   style={{
-                    fontSize: 11, padding: "4px 10px", borderRadius: 6,
+                    fontSize: 13, padding: "4px 10px", borderRadius: 6,
                     background: COLORS.accent + "22", color: COLORS.accent,
                     border: `1px solid ${COLORS.accent}55`, cursor: "pointer",
                     fontFamily: "inherit"
@@ -552,8 +552,8 @@ function NewBoardView({ selected, setSelected, onSave, searchQuery, setSearchQue
                 outline: "none"
               }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
-                <span style={{ fontSize: 13, fontWeight: 700 }}>#{sheet.id} {sheet.name}</span>
-                {isSelected && <span style={{ color: COLORS.success, fontSize: 16 }}>✓</span>}
+                <span style={{ fontSize: 15, fontWeight: 700 }}>#{sheet.id} {sheet.name}</span>
+                {isSelected && <span style={{ color: COLORS.success, fontSize: 18 }}>✓</span>}
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
                 {sheet.abilityStickers.map((a, i) => (
@@ -563,13 +563,13 @@ function NewBoardView({ selected, setSelected, onSave, searchQuery, setSearchQue
                   }}>
                     <span style={{
                       display: "flex", alignItems: "center", justifyContent: "center",
-                      padding: "4px 8px", minWidth: 40,
+                      padding: "4px 8px", minWidth: 48, whiteSpace: "nowrap",
                       background: COLORS.ability + "22", borderRight: `1px solid ${COLORS.ability}33`,
-                      fontSize: 11, fontWeight: 700, color: COLORS.ability
+                      fontSize: 13, fontWeight: 700, color: COLORS.ability
                     }}>
                       {a.cost}🎟️
                     </span>
-                    <span style={{ padding: "4px 8px", fontSize: 11, color: COLORS.text, lineHeight: 1.4 }}>
+                    <span style={{ padding: "4px 8px", fontSize: 13, color: COLORS.text, lineHeight: 1.4 }}>
                       {a.text}
                     </span>
                   </div>
@@ -582,13 +582,13 @@ function NewBoardView({ selected, setSelected, onSave, searchQuery, setSearchQue
                     }}>
                       <span style={{
                         display: "flex", alignItems: "center", justifyContent: "center",
-                        padding: "4px 8px", minWidth: 40,
+                        padding: "4px 8px", minWidth: 48, whiteSpace: "nowrap",
                         background: COLORS.pt + "22", borderRight: `1px solid ${COLORS.pt}33`,
-                        fontSize: 11, fontWeight: 700, color: COLORS.pt
+                        fontSize: 13, fontWeight: 700, color: COLORS.pt
                       }}>
                         {p.cost}🎟️
                       </span>
-                      <span style={{ padding: "4px 8px", fontSize: 13, fontWeight: 700, color: COLORS.pt }}>
+                      <span style={{ padding: "4px 8px", fontSize: 15, fontWeight: 700, color: COLORS.pt }}>
                         {p.pt}
                       </span>
                     </div>
@@ -626,24 +626,24 @@ function GameView({ game, onToggle, onEnd, setGame }) {
       }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 12 }}>
           <div>
-            <div style={{ fontSize: 11, color: COLORS.textDim, letterSpacing: 2, textTransform: "uppercase", marginBottom: 4 }}>
+            <div style={{ fontSize: 13, color: COLORS.textDim, letterSpacing: 2, textTransform: "uppercase", marginBottom: 4 }}>
               Active Game
             </div>
             <div style={{ fontSize: 18, fontWeight: 700, color: COLORS.accent }}>
               {game.boardName}
             </div>
-            <div style={{ fontSize: 12, color: COLORS.textDim, marginTop: 4 }}>
+            <div style={{ fontSize: 14, color: COLORS.textDim, marginTop: 4 }}>
               {usedCount}/{totalStickers} stickers used · Started {new Date(game.startedAt).toLocaleTimeString()}
             </div>
           </div>
           {confirmEnd ? (
             <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-              <span style={{ fontSize: 12, color: COLORS.danger }}>End game?</span>
-              <button onClick={onEnd} style={{ ...dangerBtnStyle, fontSize: 12 }}>Yes</button>
-              <button onClick={() => setConfirmEnd(false)} style={{ ...navBtnStyle, fontSize: 12 }}>No</button>
+              <span style={{ fontSize: 14, color: COLORS.danger }}>End game?</span>
+              <button onClick={onEnd} style={{ ...dangerBtnStyle, fontSize: 14 }}>Yes</button>
+              <button onClick={() => setConfirmEnd(false)} style={{ ...navBtnStyle, fontSize: 14 }}>No</button>
             </div>
           ) : (
-            <button onClick={() => setConfirmEnd(true)} style={{ ...navBtnStyle, color: COLORS.danger, fontSize: 12 }}>
+            <button onClick={() => setConfirmEnd(true)} style={{ ...navBtnStyle, color: COLORS.danger, fontSize: 14 }}>
               End game
             </button>
           )}
@@ -652,7 +652,7 @@ function GameView({ game, onToggle, onEnd, setGame }) {
         <div style={{
           marginTop: 16, display: "flex", alignItems: "center", justifyContent: "center", gap: 4
         }}>
-          <span style={{ fontSize: 12, color: COLORS.textDim, marginRight: 8, letterSpacing: 1, textTransform: "uppercase" }}>
+          <span style={{ fontSize: 14, color: COLORS.textDim, marginRight: 8, letterSpacing: 1, textTransform: "uppercase" }}>
             Tickets
           </span>
           <button onClick={() => setGame(prev => ({ ...prev, tickets: (prev.tickets || 0) - 1 }))}
@@ -709,11 +709,11 @@ function GameView({ game, onToggle, onEnd, setGame }) {
                     width: 28, height: 28, borderRadius: 8,
                     background: COLORS.accent + "22",
                     display: "flex", alignItems: "center", justifyContent: "center",
-                    fontSize: 14, fontWeight: 700, color: COLORS.accent
+                    fontSize: 16, fontWeight: 700, color: COLORS.accent
                   }}>
                     {sheetIdx + 1}
                   </span>
-                  <span style={{ fontSize: 14, fontWeight: 700 }}>{sheet.name}</span>
+                  <span style={{ fontSize: 16, fontWeight: 700 }}>{sheet.name}</span>
                 </div>
                 <span style={{ fontSize: 18, color: COLORS.textDim, transition: "transform 0.2s", transform: isExpanded ? "rotate(180deg)" : "none" }}>
                   ▾
@@ -769,7 +769,7 @@ function StickerSection({ title, color, icon, children }) {
   return (
     <div style={{ marginTop: 14 }}>
       <div style={{
-        fontSize: 10, letterSpacing: 2, textTransform: "uppercase",
+        fontSize: 12, letterSpacing: 2, textTransform: "uppercase",
         color, marginBottom: 8, display: "flex", alignItems: "center", gap: 6
       }}>
         <span>{icon}</span> {title}
@@ -786,14 +786,14 @@ function StickerChip({ label, used, color, onClick }) {
       background: used ? COLORS.used : color + "18",
       border: `1px solid ${used ? COLORS.used : color + "55"}`,
       color: used ? COLORS.usedText : color,
-      fontFamily: "inherit", fontSize: 12, fontWeight: 600,
+      fontFamily: "inherit", fontSize: 14, fontWeight: 600,
       cursor: "pointer", transition: "all 0.15s",
       textDecoration: used ? "line-through" : "none",
       opacity: used ? 0.6 : 1,
       position: "relative"
     }}>
       {label}
-      {used && <span style={{ marginLeft: 6, fontSize: 10 }}>✕</span>}
+      {used && <span style={{ marginLeft: 6, fontSize: 12 }}>✕</span>}
     </button>
   );
 }
@@ -805,7 +805,7 @@ function AbilityChip({ ability, used, onClick }) {
       background: used ? COLORS.used : COLORS.ability + "12",
       border: `1px solid ${used ? COLORS.used : COLORS.ability + "44"}`,
       color: used ? COLORS.usedText : COLORS.text,
-      fontFamily: "inherit", fontSize: 13,
+      fontFamily: "inherit", fontSize: 15,
       cursor: "pointer", transition: "all 0.15s",
       opacity: used ? 0.6 : 1,
       display: "flex", alignItems: "stretch",
@@ -816,7 +816,7 @@ function AbilityChip({ ability, used, onClick }) {
         gap: 4, padding: "10px 12px", minWidth: 56,
         background: used ? COLORS.used : COLORS.ability + "30",
         borderRight: `1px solid ${used ? COLORS.used : COLORS.ability + "44"}`,
-        fontSize: 15, fontWeight: 700,
+        fontSize: 17, fontWeight: 700,
         color: used ? COLORS.usedText : COLORS.ability
       }}>
         {ability.cost} 🎟️
@@ -828,7 +828,7 @@ function AbilityChip({ ability, used, onClick }) {
       }}>
         {ability.text}
       </span>
-      {used && <span style={{ padding: "10px 12px", fontSize: 10, color: COLORS.usedText, display: "flex", alignItems: "center" }}>✕</span>}
+      {used && <span style={{ padding: "10px 12px", fontSize: 12, color: COLORS.usedText, display: "flex", alignItems: "center" }}>✕</span>}
     </button>
   );
 }
@@ -850,7 +850,7 @@ function PTChip({ pt, used, onClick }) {
         gap: 4, padding: "10px 12px", minWidth: 56,
         background: used ? COLORS.used : COLORS.pt + "25",
         borderRight: `1px solid ${used ? COLORS.used : COLORS.pt + "44"}`,
-        fontSize: 15, fontWeight: 700,
+        fontSize: 17, fontWeight: 700,
         color: used ? COLORS.usedText : COLORS.pt
       }}>
         {pt.cost} 🎟️
@@ -862,7 +862,7 @@ function PTChip({ pt, used, onClick }) {
       }}>
         {pt.pt}
       </span>
-      {used && <span style={{ padding: "10px 8px", fontSize: 10, color: COLORS.usedText, display: "flex", alignItems: "center" }}>✕</span>}
+      {used && <span style={{ padding: "10px 8px", fontSize: 12, color: COLORS.usedText, display: "flex", alignItems: "center" }}>✕</span>}
     </button>
   );
 }
@@ -882,19 +882,19 @@ const SHUFFLE_KEYFRAMES = `
     100% { transform: rotate(0deg)  skewX(0deg);  }
   }
   @keyframes sa-deal-0 {
-    0%   { transform: translate(85px, -125px) scale(0.75); opacity: 0; }
-    50%  { transform: translate(40px, -70px)  scale(0.9);  opacity: 1; }
-    100% { transform: translate(0, 0)         scale(1);    opacity: 1; }
+    0%   { transform: translate(104px, -125px) scale(0.75); opacity: 0; }
+    50%  { transform: translate(50px, -75px)   scale(0.9);  opacity: 1; }
+    100% { transform: translate(0, 0)          scale(1);    opacity: 1; }
   }
   @keyframes sa-deal-1 {
     0%   { transform: translate(0px, -125px) scale(0.75); opacity: 0; }
-    50%  { transform: translate(0px, -70px)  scale(0.9);  opacity: 1; }
+    50%  { transform: translate(0px, -75px)  scale(0.9);  opacity: 1; }
     100% { transform: translate(0, 0)        scale(1);    opacity: 1; }
   }
   @keyframes sa-deal-2 {
-    0%   { transform: translate(-85px, -125px) scale(0.75); opacity: 0; }
-    50%  { transform: translate(-40px, -70px)  scale(0.9);  opacity: 1; }
-    100% { transform: translate(0, 0)          scale(1);    opacity: 1; }
+    0%   { transform: translate(-104px, -125px) scale(0.75); opacity: 0; }
+    50%  { transform: translate(-50px, -75px)   scale(0.9);  opacity: 1; }
+    100% { transform: translate(0, 0)           scale(1);    opacity: 1; }
   }
   @keyframes sa-flip-back {
     0%   { transform: scaleX(1); }
@@ -956,13 +956,13 @@ function ShuffleAnimation({ game, onComplete }) {
     onComplete();
   }, [onComplete]);
 
-  const CARD_W = 80;
-  const CARD_H = 112;
+  const CARD_W = 96;
+  const CARD_H = 134;
   const STAGE_W = 360;
-  const DECK_LEFT = 140;
+  const DECK_LEFT = 132;
   const DECK_TOP = 50;
   const DEAL_TOP = 175;
-  const DEAL_LEFTS = [55, 140, 225];
+  const DEAL_LEFTS = [28, 132, 236];
 
   const cardBackBase = {
     position: "absolute", inset: 0, borderRadius: 8,
@@ -987,19 +987,19 @@ function ShuffleAnimation({ game, onComplete }) {
     >
       <button
         onClick={e => { e.stopPropagation(); skip(); }}
-        style={{ position: "absolute", top: 20, right: 20, ...navBtnStyle, fontSize: 11, padding: "6px 12px" }}
+        style={{ position: "absolute", top: 20, right: 20, ...navBtnStyle, fontSize: 13, padding: "6px 12px" }}
       >
         Skip →
       </button>
 
       <div style={{
-        fontSize: 11, letterSpacing: 2, textTransform: "uppercase",
+        fontSize: 13, letterSpacing: 2, textTransform: "uppercase",
         color: COLORS.textDim, marginBottom: 24,
       }}>
         {game.boardName}
       </div>
 
-      <div style={{ position: "relative", width: STAGE_W, height: 310 }}>
+      <div style={{ position: "relative", width: STAGE_W, height: 330 }}>
         {/* Deck */}
         <div style={{
           position: "absolute", left: DECK_LEFT, top: DECK_TOP,
@@ -1054,10 +1054,10 @@ function ShuffleAnimation({ game, onComplete }) {
                   transform: "scaleX(0)",
                   animation: isFlipped ? "sa-flip-front 200ms ease-out 200ms forwards" : "none",
                 }}>
-                  <div style={{ display: "flex", gap: 3, fontSize: 16 }}>
+                  <div style={{ display: "flex", gap: 3, fontSize: 18 }}>
                     {artEmojis.map((e, j) => <span key={j}>{e}</span>)}
                   </div>
-                  <div style={{ fontSize: 12, fontWeight: 700, color: COLORS.name, lineHeight: 1.3 }}>
+                  <div style={{ fontSize: 14, fontWeight: 700, color: COLORS.name, lineHeight: 1.3 }}>
                     {sheet.name}
                   </div>
                 </div>
@@ -1069,7 +1069,7 @@ function ShuffleAnimation({ game, onComplete }) {
 
       {phase === "revealed" && (
         <div style={{
-          marginTop: 24, fontSize: 12, color: COLORS.accent,
+          marginTop: 24, fontSize: 14, color: COLORS.accent,
           animation: "sa-pulse 1.5s ease-in-out infinite",
           letterSpacing: 1,
         }}>
@@ -1085,14 +1085,14 @@ const navBtnStyle = {
   padding: "8px 14px", borderRadius: 8,
   background: COLORS.card, border: `1px solid ${COLORS.border}`,
   color: COLORS.text, fontFamily: "'Comic Neue', cursive",
-  fontSize: 12, cursor: "pointer", transition: "all 0.15s"
+  fontSize: 14, cursor: "pointer", transition: "all 0.15s"
 };
 
 const primaryBtnStyle = {
   padding: "10px 20px", borderRadius: 8,
   background: `linear-gradient(135deg, ${COLORS.accentDim}, ${COLORS.accent})`,
   border: "none", color: "#fff", fontFamily: "'Comic Neue', cursive",
-  fontSize: 13, fontWeight: 700, cursor: "pointer",
+  fontSize: 15, fontWeight: 700, cursor: "pointer",
   letterSpacing: 1, transition: "all 0.15s",
   boxShadow: `0 4px 16px ${COLORS.accent}33`
 };
