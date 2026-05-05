@@ -174,8 +174,10 @@ export default function App() {
       tickets: 0
     };
     setGame(gameState);
-    setView("game");
+    setView("shuffle");
   }, []);
+
+  const goToGame = useCallback(() => setView("game"), []);
 
   const toggleSticker = useCallback((sheetId, stickerType, stickerIdx, cost) => {
     setGame(prev => {
@@ -273,6 +275,9 @@ export default function App() {
           <NewBoardView selected={selectedForBoard} setSelected={setSelectedForBoard}
             onSave={addBoard} searchQuery={searchQuery} setSearchQuery={setSearchQuery}
             existingBoards={boards} />
+        )}
+        {view === "shuffle" && game && (
+          <ShuffleAnimation game={game} onComplete={goToGame} />
         )}
         {view === "game" && game && (
           <GameView game={game} onToggle={toggleSticker} onEnd={endGame}
@@ -859,6 +864,219 @@ function PTChip({ pt, used, onClick }) {
       </span>
       {used && <span style={{ padding: "10px 8px", fontSize: 10, color: COLORS.usedText, display: "flex", alignItems: "center" }}>✕</span>}
     </button>
+  );
+}
+
+// ─── Shuffle Animation ───
+const SHUFFLE_KEYFRAMES = `
+  @keyframes sa-fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes sa-riffle {
+    0%   { transform: rotate(0deg)  skewX(0deg);  }
+    20%  { transform: rotate(-5deg) skewX(-3deg); }
+    40%  { transform: rotate(5deg)  skewX(3deg);  }
+    60%  { transform: rotate(-3deg) skewX(-2deg); }
+    80%  { transform: rotate(3deg)  skewX(2deg);  }
+    100% { transform: rotate(0deg)  skewX(0deg);  }
+  }
+  @keyframes sa-deal-0 {
+    0%   { transform: translate(85px, -125px) scale(0.75); opacity: 0; }
+    50%  { transform: translate(40px, -70px)  scale(0.9);  opacity: 1; }
+    100% { transform: translate(0, 0)         scale(1);    opacity: 1; }
+  }
+  @keyframes sa-deal-1 {
+    0%   { transform: translate(0px, -125px) scale(0.75); opacity: 0; }
+    50%  { transform: translate(0px, -70px)  scale(0.9);  opacity: 1; }
+    100% { transform: translate(0, 0)        scale(1);    opacity: 1; }
+  }
+  @keyframes sa-deal-2 {
+    0%   { transform: translate(-85px, -125px) scale(0.75); opacity: 0; }
+    50%  { transform: translate(-40px, -70px)  scale(0.9);  opacity: 1; }
+    100% { transform: translate(0, 0)          scale(1);    opacity: 1; }
+  }
+  @keyframes sa-flip-back {
+    0%   { transform: scaleX(1); }
+    100% { transform: scaleX(0); }
+  }
+  @keyframes sa-flip-front {
+    0%   { transform: scaleX(0); }
+    100% { transform: scaleX(1); }
+  }
+  @keyframes sa-pulse {
+    0%, 100% { opacity: 0.6; }
+    50%      { opacity: 1;   }
+  }
+  @keyframes sa-glow {
+    0%, 100% { box-shadow: 0 0 10px 2px rgba(192,132,252,0.25); }
+    50%      { box-shadow: 0 0 24px 5px rgba(192,132,252,0.65); }
+  }
+`;
+
+function ShuffleAnimation({ game, onComplete }) {
+  const [phase, setPhase] = useState("idle");
+  const [dealtCards, setDealtCards] = useState(new Set());
+  const [flippedCards, setFlippedCards] = useState(new Set());
+  const skipped = useRef(false);
+
+  const sheets = game.selectedSheetIds.map(id =>
+    ALL_STICKER_SHEETS.find(s => s.id === id)
+  ).filter(Boolean);
+
+  useEffect(() => {
+    if (!document.getElementById("shuffle-anim-styles")) {
+      const el = document.createElement("style");
+      el.id = "shuffle-anim-styles";
+      el.textContent = SHUFFLE_KEYFRAMES;
+      document.head.appendChild(el);
+    }
+    return () => document.getElementById("shuffle-anim-styles")?.remove();
+  }, []);
+
+  useEffect(() => {
+    const timers = [];
+    const t = (fn, ms) => timers.push(setTimeout(fn, ms));
+    t(() => setPhase("shuffling"), 200);
+    t(() => setPhase("dealing"), 1400);
+    [0, 1, 2].forEach(i =>
+      t(() => setDealtCards(prev => new Set([...prev, i])), 1400 + i * 150)
+    );
+    t(() => setPhase("flipping"), 2000);
+    [0, 1, 2].forEach(i =>
+      t(() => setFlippedCards(prev => new Set([...prev, i])), 2000 + i * 200)
+    );
+    t(() => setPhase("revealed"), 2600);
+    t(() => { if (!skipped.current) onComplete(); }, 5600);
+    return () => timers.forEach(clearTimeout);
+  }, [onComplete]);
+
+  const skip = useCallback(() => {
+    skipped.current = true;
+    onComplete();
+  }, [onComplete]);
+
+  const CARD_W = 80;
+  const CARD_H = 112;
+  const STAGE_W = 360;
+  const DECK_LEFT = 140;
+  const DECK_TOP = 50;
+  const DEAL_TOP = 175;
+  const DEAL_LEFTS = [55, 140, 225];
+
+  const cardBackBase = {
+    position: "absolute", inset: 0, borderRadius: 8,
+    display: "flex", alignItems: "center", justifyContent: "center",
+    fontSize: 28,
+    background: `repeating-linear-gradient(45deg, ${COLORS.accentDim}44 0px, ${COLORS.accentDim}44 1px, transparent 1px, transparent 8px), ${COLORS.card}`,
+    border: `1px solid ${COLORS.accent}66`,
+  };
+
+  return (
+    <div
+      onClick={phase === "revealed" ? skip : undefined}
+      style={{
+        position: "fixed", inset: 0, zIndex: 1000,
+        background: "rgba(12,10,20,0.96)",
+        display: "flex", flexDirection: "column",
+        alignItems: "center", justifyContent: "center",
+        animation: "sa-fadeIn 200ms ease-out",
+        fontFamily: "'Comic Neue', cursive",
+        cursor: phase === "revealed" ? "pointer" : "default",
+      }}
+    >
+      <button
+        onClick={e => { e.stopPropagation(); skip(); }}
+        style={{ position: "absolute", top: 20, right: 20, ...navBtnStyle, fontSize: 11, padding: "6px 12px" }}
+      >
+        Skip →
+      </button>
+
+      <div style={{
+        fontSize: 11, letterSpacing: 2, textTransform: "uppercase",
+        color: COLORS.textDim, marginBottom: 24,
+      }}>
+        {game.boardName}
+      </div>
+
+      <div style={{ position: "relative", width: STAGE_W, height: 310 }}>
+        {/* Deck */}
+        <div style={{
+          position: "absolute", left: DECK_LEFT, top: DECK_TOP,
+          width: CARD_W, height: CARD_H,
+          transformOrigin: "center bottom",
+          animation: phase === "shuffling" ? "sa-riffle 300ms ease-in-out 0s 4" : "none",
+        }}>
+          {Array.from({ length: 6 }, (_, i) => {
+            const offset = 5 - i;
+            return (
+              <div key={i} style={{
+                ...cardBackBase,
+                transform: `translate(${offset * 1.2}px, ${offset * -1.2}px)`,
+                zIndex: i,
+                border: `1px solid ${COLORS.accent}${i === 5 ? "77" : "44"}`,
+              }}>
+                {i === 5 ? "🎪" : null}
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Dealt cards */}
+        {[0, 1, 2].map(i => {
+          if (!dealtCards.has(i)) return null;
+          const sheet = sheets[i];
+          if (!sheet) return null;
+          const isFlipped = flippedCards.has(i);
+          const artEmojis = sheet.artStickers.map(s => s.split(" ")[0]);
+          return (
+            <div key={i} style={{
+              position: "absolute",
+              left: DEAL_LEFTS[i], top: DEAL_TOP,
+              width: CARD_W, height: CARD_H,
+              animation: `sa-deal-${i} 400ms ease-out forwards`,
+            }}>
+              <div style={{
+                position: "relative", width: "100%", height: "100%", borderRadius: 8,
+                animation: phase === "revealed" ? "sa-glow 1.5s ease-in-out infinite" : "none",
+              }}>
+                <div style={{
+                  ...cardBackBase,
+                  animation: isFlipped ? "sa-flip-back 200ms ease-in forwards" : "none",
+                }}>🎪</div>
+                <div style={{
+                  position: "absolute", inset: 0, borderRadius: 8,
+                  background: COLORS.card,
+                  border: `1px solid ${COLORS.accent}88`,
+                  display: "flex", flexDirection: "column",
+                  alignItems: "center", justifyContent: "center",
+                  gap: 5, padding: "8px 6px", textAlign: "center",
+                  transform: "scaleX(0)",
+                  animation: isFlipped ? "sa-flip-front 200ms ease-out 200ms forwards" : "none",
+                }}>
+                  <div style={{ display: "flex", gap: 3, fontSize: 16 }}>
+                    {artEmojis.map((e, j) => <span key={j}>{e}</span>)}
+                  </div>
+                  <div style={{ fontSize: 12, fontWeight: 700, color: COLORS.name, lineHeight: 1.3 }}>
+                    {sheet.name}
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {phase === "revealed" && (
+        <div style={{
+          marginTop: 24, fontSize: 12, color: COLORS.accent,
+          animation: "sa-pulse 1.5s ease-in-out infinite",
+          letterSpacing: 1,
+        }}>
+          Tap to continue →
+        </div>
+      )}
+    </div>
   );
 }
 
