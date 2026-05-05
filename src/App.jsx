@@ -882,18 +882,18 @@ const SHUFFLE_KEYFRAMES = `
     100% { transform: rotate(0deg)  skewX(0deg);  }
   }
   @keyframes sa-deal-0 {
-    0%   { transform: translate(104px, -125px) scale(0.75); opacity: 0; }
-    50%  { transform: translate(50px, -75px)   scale(0.9);  opacity: 1; }
+    0%   { transform: translate(104px, -160px) scale(0.75); opacity: 0; }
+    50%  { transform: translate(50px, -95px)   scale(0.9);  opacity: 1; }
     100% { transform: translate(0, 0)          scale(1);    opacity: 1; }
   }
   @keyframes sa-deal-1 {
-    0%   { transform: translate(0px, -125px) scale(0.75); opacity: 0; }
-    50%  { transform: translate(0px, -75px)  scale(0.9);  opacity: 1; }
+    0%   { transform: translate(0px, -160px) scale(0.75); opacity: 0; }
+    50%  { transform: translate(0px, -95px)  scale(0.9);  opacity: 1; }
     100% { transform: translate(0, 0)        scale(1);    opacity: 1; }
   }
   @keyframes sa-deal-2 {
-    0%   { transform: translate(-104px, -125px) scale(0.75); opacity: 0; }
-    50%  { transform: translate(-50px, -75px)   scale(0.9);  opacity: 1; }
+    0%   { transform: translate(-104px, -160px) scale(0.75); opacity: 0; }
+    50%  { transform: translate(-50px, -95px)   scale(0.9);  opacity: 1; }
     100% { transform: translate(0, 0)           scale(1);    opacity: 1; }
   }
   @keyframes sa-flip-back {
@@ -961,7 +961,7 @@ function ShuffleAnimation({ game, onComplete }) {
   const STAGE_W = 360;
   const DECK_LEFT = 132;
   const DECK_TOP = 50;
-  const DEAL_TOP = 175;
+  const DEAL_TOP = 210;
   const DEAL_LEFTS = [28, 132, 236];
 
   const cardBackBase = {
@@ -999,7 +999,7 @@ function ShuffleAnimation({ game, onComplete }) {
         {game.boardName}
       </div>
 
-      <div style={{ position: "relative", width: STAGE_W, height: 330 }}>
+      <div style={{ position: "relative", width: STAGE_W, height: 365 }}>
         {/* Deck */}
         <div style={{
           position: "absolute", left: DECK_LEFT, top: DECK_TOP,
