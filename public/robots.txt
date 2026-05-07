@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mtg-sticker-tracker.vercel.app/sitemap.xml
